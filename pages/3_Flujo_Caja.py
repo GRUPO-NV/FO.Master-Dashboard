@@ -3,9 +3,11 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from src.app_data import get_data
+from src.auth import require_password
 from src.theme import GREEN, NAVY, RED, SLATE_LIGHT, fmt_clp, format_display_df, inject_base_css, plotly_layout
 
 st.set_page_config(page_title="Flujo de Caja — Family Office", layout="wide")
+require_password()
 inject_base_css()
 data = get_data()
 fc = data.flujo_caja

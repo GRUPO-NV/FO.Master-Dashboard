@@ -1,9 +1,11 @@
 import streamlit as st
 
 from src.app_data import get_data
+from src.auth import require_password
 from src.theme import fmt_clp, fmt_pct, format_display_df, inject_base_css, status_badge_html
 
 st.set_page_config(page_title="Empresas — Family Office", layout="wide")
+require_password()
 inject_base_css()
 data = get_data()
 

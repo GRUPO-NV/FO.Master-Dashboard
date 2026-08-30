@@ -2,6 +2,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from src.app_data import get_data
+from src.auth import require_password
 from src.simulator import (
     ScenarioInputs,
     required_cagr_for_goal,
@@ -11,6 +12,7 @@ from src.simulator import (
 from src.theme import GREEN, NAVY, fmt_clp, fmt_pct, inject_base_css, metric_card, plotly_layout
 
 st.set_page_config(page_title="Simulador — Family Office", layout="wide")
+require_password()
 inject_base_css()
 data = get_data()
 

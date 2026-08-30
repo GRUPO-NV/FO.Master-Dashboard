@@ -81,4 +81,27 @@ futura migración a Next.js + FastAPI sea directa:
 
 `data/snapshots.csv` (no versionado) acumula un registro por cada versión distinta del
 Excel que se carga. Con al menos 2 snapshots, la página **Historial** grafica la
-evolución del Patrimonio Neto.
+evolución del Patrimonio Neto. En Streamlit Community Cloud el filesystem no es
+persistente entre reinicios del contenedor, así que este historial puede resetearse
+en algún redeploy — si eso importa, hay que moverlo a un storage externo más adelante.
+
+## Despliegue en Streamlit Community Cloud
+
+`packages.txt` en la raíz del repo instala `libreoffice-calc` en el contenedor (Community
+Cloud lo lee automáticamente antes de `pip install -r requirements.txt`).
+
+1. Entra a [share.streamlit.io](https://share.streamlit.io) con la cuenta de GitHub que
+   tiene acceso a este repo.
+2. "New app" → repo `tarmas-ops/FO.Master-Dashboard`, branch, main file `app.py`.
+3. **Antes de compartir la URL**, ve a *Settings → Secrets* de la app en Streamlit Cloud
+   y agrega:
+   ```toml
+   dashboard_password = "elige-una-clave"
+   ```
+   Sin esto, el dashboard queda sin clave (solo muestra una advertencia) — cualquiera
+   con el link vería el patrimonio de la familia, porque el plan gratuito de Community
+   Cloud no tiene control de acceso propio.
+4. Para actualizar los datos: reemplaza `data/FO_Master_Consolidado.xlsx` en el repo
+   (commit + push) y la app lo recalcula solo en el siguiente refresh — no hace falta
+   redeploy manual. Para actualizar código sí hace falta push a la rama que Streamlit
+   Cloud está siguiendo (Community Cloud redepliega automáticamente en cada push).

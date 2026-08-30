@@ -2,11 +2,13 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from src.app_data import get_data
+from src.auth import require_password
 from src.pdf_export import build_executive_summary_pdf
 from src.snapshots import load_snapshots
 from src.theme import GREEN, NAVY, fmt_clp, format_display_df, inject_base_css, plotly_layout
 
 st.set_page_config(page_title="Historial — Family Office", layout="wide")
+require_password()
 inject_base_css()
 data = get_data()
 

@@ -1,10 +1,12 @@
 import streamlit as st
 
 from src.app_data import get_data
+from src.auth import require_password
 from src.pending_data import scan_pending_data
 from src.theme import fmt_clp, inject_base_css, status_badge_html
 
 st.set_page_config(page_title="Datos Pendientes — Family Office", layout="wide")
+require_password()
 inject_base_css()
 data = get_data()
 

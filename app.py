@@ -2,6 +2,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from src.app_data import get_data
+from src.auth import require_password
 from src.kpi_engine import build_kpi_cards
 from src.pending_data import scan_pending_data
 from src.theme import (
@@ -14,6 +15,7 @@ from src.theme import (
 )
 
 st.set_page_config(page_title="Family Office — Panel Consolidado", layout="wide")
+require_password()
 inject_base_css()
 
 data = get_data()
